@@ -11,6 +11,11 @@ function App() {
     setTodoList((prevTodoList) => [...prevTodoList, newTodo]);
   }
   
+  const[todoList, setTodoList] = useState([]);
+  function addTodo(newTodo){
+    setTodoList((prevTodoList) => [...prevTodoList, newTodo]);
+  }
+  
    return (
   <>
     <div>

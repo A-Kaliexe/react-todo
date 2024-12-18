@@ -22,7 +22,7 @@ function useSemiPersistentState() {
 
 function App() {
   const [todoList, setTodoList] = useSemiPersistentState();
-
+  
   function addTodo(newTodo){
     setTodoList((prevTodoList) => [...prevTodoList, newTodo]);
   }

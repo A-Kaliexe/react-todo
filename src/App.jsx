@@ -14,7 +14,7 @@ function App() {
       setTimeout(() => {
         resolve({
           data: {
-            todoList: []  
+            todoList: JSON.parse(localStorage.getItem('savedTodoList')) || [] 
           }
         });
       }, 2000); 
@@ -28,8 +28,10 @@ function App() {
   }, []);
 
   useEffect(() => {
+    if (!isLoading) {
     localStorage.setItem('savedTodoList', JSON.stringify(todoList));
-    }, [todoList]);
+    }
+   }, [isLoading, todoList]);
 
   function addTodo(newTodo) {
     setTodoList((prevTodoList) => [...prevTodoList, newTodo]);

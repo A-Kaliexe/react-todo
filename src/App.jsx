@@ -5,20 +5,20 @@ import './App.css'
 import TodoList from './TodoList'
 import AddTodoForm from './AddTodoForm'
 
-
 function App() {
   const [todoList, setTodoList] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  
+  const [isLoading, setIsLoading] = useState(true)
+
   const fetchData = async () => {
   const options = {
     method: 'GET',
     headers: {
-      Authorization: `Bearer ${import.meta.env.VITE_AIRTABLE_API_TOKEN}`,
-    },
-  };
+      Authorization: `Bearer ${import.meta.env.VITE_AIRTABLE_API_TOKEN}`
+    }
+  }
 
-  const url = `https://api.airtable.com/v0/${import.meta.env.VITE_AIRTABLE_BASE_ID}/${import.meta.env.VITE_TABLE_NAME}`;
+  const url = `https://api.airtable.com/v0/${import.meta.env.VITE_AIRTABLE_BASE_ID}/${import.meta.env.VITE_TABLE_NAME}`
+
 
   try {
     const response = await fetch(url, options);
@@ -30,6 +30,7 @@ function App() {
     }
 
     const data = await response.json();
+    console.log(data);
     
     const todos = data.records.map((todo) => {
       const newTodo =  {
@@ -49,6 +50,7 @@ function App() {
   }
 };
 
+//handles Airtable
 useEffect(() => {
 fetchData()
 }, []);
@@ -78,3 +80,4 @@ fetchData()
 }
 
 export default App
+

@@ -31,7 +31,7 @@ function App() {
 
     const data = await response.json();
     
-    const todos = todosFromAPI.records.map((todo) => {
+    const todos = data.records.map((todo) => {
       const newTodo =  {
           id: todo.id,
           title: todo.fields.title
@@ -49,23 +49,8 @@ function App() {
   }
 };
 
-
 useEffect(() => {
-const getAsyncTodoList = new Promise((resolve, reject) => {
-  setTimeout(() => {
-    resolve({
-      data: {
-        todoList: []  
-      }
-    });
-  }, 2000); 
-});
-
-getAsyncTodoList
-.then(result=>{
-  setTodoList(result.data.todoList)
-  setIsLoading(false)
-});
+fetchData()
 }, []);
 
   useEffect(() => {

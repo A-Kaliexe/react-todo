@@ -62,8 +62,7 @@ fetchData()
     localStorage.setItem('savedTodoList', JSON.stringify(todoList));
       }
     }, [isLoading, todoList]);
-    }
-   }, [isLoading, todoList]);
+    
 
 
   function addTodo(newTodo) {

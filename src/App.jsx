@@ -6,6 +6,7 @@ import TodoList from './TodoList'
 import AddTodoForm from './AddTodoForm'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
+
 function App() {
   const [todoList, setTodoList] = useState([]);
   const [isLoading, setIsLoading] = useState(true)
@@ -57,8 +58,13 @@ fetchData()
 }, []);
 
   useEffect(() => {
+    if (!isLoading) {
     localStorage.setItem('savedTodoList', JSON.stringify(todoList));
-    }, [todoList]);
+      }
+    }, [isLoading, todoList]);
+    }
+   }, [isLoading, todoList]);
+
 
   function addTodo(newTodo) {
     setTodoList((prevTodoList) => [...prevTodoList, newTodo]);
@@ -88,3 +94,4 @@ fetchData()
 }
 
 export default App
+

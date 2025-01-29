@@ -1,0 +1,53 @@
+.addtodoform {
+  padding: 1.2rem;
+  margin-top: 2rem;
+  background-color: #e7e4e4;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.308);
+}
+
+input {
+  flex: 1;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+
+}
+
+.AddBtnIcon {
+  font-size: 1rem;
+  padding: 0.8rem 1.5rem;
+  background-color: #229e02;
+  color: rgb(241, 238, 238);
+  border-radius: 0.5rem;
+  display: flex;
+  gap: 0.5rem;
+  margin: 1rem;
+
+
+}
+
+.AddBtnIcon:hover {
+  background-color: #01ac2e;
+}
+
+
+@media (max-width: 768px) {
+  .addtodoform {
+    padding: 1rem;
+    margin: 1rem auto;
+    max-width: 90%;
+  }
+
+  input {
+    font-size: 1rem;
+    padding: 0.6rem;
+  }
+
+  .AddBtnIcon {
+    font-size: 0.9rem;
+    padding: 0.6rem 1rem;
+  }
+}

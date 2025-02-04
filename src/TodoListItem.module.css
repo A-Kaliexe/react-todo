@@ -1,0 +1,42 @@
+.ListItem {
+  color: #055a08;
+  font-weight: 600;
+  border: 1px solid #192abd21;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin: 1.8rem;
+  padding: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+.RemoveBtnIcon {
+  background-color: #f3101098;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #f0e6e8;
+  border: none;
+  margin-left: 2rem;
+  padding: 0.8rem;
+  border-radius: 0.2rem;
+}
+
+.RemoveBtnIcon:hover {
+  background-color: #e60000;
+}
+
+
+@media (max-width: 768px) {
+  .ListItem {
+    font-size: 1rem;
+    padding: 0.8rem;
+  }
+
+  button {
+    font-size: 0.9rem;
+    padding: 0.4rem 0.8rem;
+  }
+}

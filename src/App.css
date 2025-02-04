@@ -1,8 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
 #root {
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+  background-color: rgb(223, 228, 233);
+  border-radius: 3rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
 }
 
 .logo {
@@ -11,9 +16,11 @@
   will-change: filter;
   transition: filter 300ms;
 }
+
 .logo:hover {
   filter: drop-shadow(0 0 2em #646cffaa);
 }
+
 .logo.react:hover {
   filter: drop-shadow(0 0 2em #61dafbaa);
 }
@@ -22,6 +29,7 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
@@ -35,8 +43,41 @@
 
 .card {
   padding: 2em;
+
 }
 
 .read-the-docs {
   color: #888;
+}
+
+body {
+  background: linear-gradient(135deg, #A7C7E7 0%, #A8D5BA 100%);
+  /*background: linear-gradient(90deg, #23abbd 2%, #ffdd93 100%);*/
+  font-family: 'Monserrat', sans-serif;
+  font-weight: 600;
+}
+
+h1 {
+  color: #01ac87;
+  font-weight: 800;
+}
+
+
+
+@media (max-width: 768px) {
+  .App {
+    padding: 1rem;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  input[type="text"] {
+    font-size: 1rem;
+  }
+
+  button {
+    font-size: 1rem;
+  }
 }

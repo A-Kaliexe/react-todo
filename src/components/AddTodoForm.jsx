@@ -3,6 +3,7 @@ import InputWithLabel from "./InputWithLabel";
 import style from "./AddTodoForm.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import PropTypes from "prop-types";
 
 function AddTodoForm({ onAddTodo }) {
   const [todoTitle, setTodoTitle] = useState("");
@@ -11,13 +12,15 @@ function AddTodoForm({ onAddTodo }) {
     const newTodotitle = e.target.value;
     setTodoTitle(newTodotitle);
   }
-
+   
   function handleAddTodo(e) {
     e.preventDefault();
-    const newTodo = { title: todoTitle, id: Date.now() };
+
+    const newTodo = { title: todoTitle, id: String(Date.now()) };
     onAddTodo(newTodo);
     setTodoTitle("");
   }
+
   return (
     <form onSubmit={handleAddTodo} className={style.addtodoform}>
       <InputWithLabel
@@ -33,5 +36,9 @@ function AddTodoForm({ onAddTodo }) {
     </form>
   );
 }
+
+AddTodoForm.propTypes = {
+  onAddTodo: PropTypes.func.isRequired, 
+};
 
 export default AddTodoForm;

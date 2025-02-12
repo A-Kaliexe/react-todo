@@ -1,8 +1,9 @@
 import style from "./TodoListItem.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan } from "@fortawesome/free-regular-svg-icons";
+import PropTypes from "prop-types";
 
-function TodoListItem({ todo, removeTodo }) {
+function TodoListItem({ todo, removeTodo }) {  
   return (
     <li className={style.ListItem}>
       {todo.title}
@@ -18,4 +19,12 @@ function TodoListItem({ todo, removeTodo }) {
     </li>
   );
 }
+
+TodoListItem.propTypes = {
+  todo: PropTypes.shape({
+    id: PropTypes.string.isRequired, 
+    title: PropTypes.string.isRequired,
+  }).isRequired,
+};
+
 export default TodoListItem;

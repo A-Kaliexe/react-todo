@@ -1,14 +1,18 @@
 import { useState, useEffect } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
-import "./App.css";
+import { orderBy } from "lodash";
 import TodoList from "./components/TodoList";
 import AddTodoForm from "./components/AddTodoForm";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import "./App.css";
 
 function App() {
   const [todoList, setTodoList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [isReverse, setIsReverse] = useState(false);
+
+  const toggleSortOrder = () => {
+    setIsReverse(!isReverse);
+  };
 
   const fetchData = async () => {
     const options = {
@@ -20,28 +24,30 @@ function App() {
 
     const url = `https://api.airtable.com/v0/${
       import.meta.env.VITE_AIRTABLE_BASE_ID
-    }/${import.meta.env.VITE_TABLE_NAME}`;
+    }/${
+      import.meta.env.VITE_TABLE_NAME
+    }?view=Grid%20view&sort[0][field]=title&sort[0][direction]=asc`;
 
     try {
       const response = await fetch(url, options);
-
       if (!response.ok) {
-        const message = `Error has ocurred:
-                             ${response.status}`;
+        const message = `Error has occurred: ${response.status}`;
         throw new Error(message);
       }
 
       const data = await response.json();
       console.log(data);
 
-      const todos = data.records.map((todo) => {
-        const newTodo = {
-          id: todo.id,
-          title: todo.fields.title,
-        };
+      let todos = data.records.map((todo) => ({
+        id: todo.id,
+        title: todo.fields.title,
+      }));
 
-        return newTodo;
-      });
+      todos = orderBy(
+        todos,
+        [(todo) => todo.title.toLowerCase()],
+        [isReverse ? "desc" : "asc"]
+      );
 
       setTodoList(todos);
       setIsLoading(false);
@@ -51,16 +57,9 @@ function App() {
     }
   };
 
-  //handles Airtable
   useEffect(() => {
     fetchData();
-  }, []);
-
-  useEffect(() => {
-    if (!isLoading) {
-      localStorage.setItem("savedTodoList", JSON.stringify(todoList));
-    }
-  }, [isLoading, todoList]);
+  }, [isReverse]);
 
   function addTodo(newTodo) {
     setTodoList((prevTodoList) => [...prevTodoList, newTodo]);
@@ -82,6 +81,9 @@ function App() {
               <div>
                 <h1>Todo List</h1>
                 <AddTodoForm onAddTodo={addTodo} />
+                <button onClick={toggleSortOrder}>
+                  Toggle Button ({isReverse ? "Descending" : "Ascending"})
+                </button>
                 {isLoading ? (
                   <p>Loading...</p>
                 ) : (

@@ -61,15 +61,75 @@ function App() {
     fetchData();
   }, [isReverse]);
 
-  function addTodo(newTodo) {
+  const addTodo = async (newTodo) => {
+   
     setTodoList((prevTodoList) => [...prevTodoList, newTodo]);
-  }
 
-  function removeTodo(id) {
-    const updatedList = todoList.filter((todo) => todo.id !== id);
-    setTodoList(updatedList);
-    localStorage.setItem("savedTodoList", JSON.stringify(updatedList));
-  }
+    const url = `https://api.airtable.com/v0/${
+      import.meta.env.VITE_AIRTABLE_BASE_ID
+    }/${import.meta.env.VITE_TABLE_NAME}`;
+
+    const options = {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${import.meta.env.VITE_AIRTABLE_API_TOKEN}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        fields: {
+          title: newTodo.title, 
+        },
+      }),
+    };
+
+    try {
+      const response = await fetch(url, options);
+      if (!response.ok) {
+        const message = `Error: ${response.status}`;
+        throw new Error(message);
+      }
+
+      const data = await response.json();
+
+      setTodoList((prevTodoList) =>
+        prevTodoList.map((todo) =>
+          todo.id === newTodo.id ? { ...todo, id: data.id } : todo
+        )
+      );
+    } catch (error) {
+      console.error("Error:", error.message);
+
+      setTodoList((prevTodoList) =>
+        prevTodoList.filter((todo) => todo.id !== newTodo.id)
+      );
+    }
+  };
+
+  const removeTodo = async (id) => {
+    const url = `https://api.airtable.com/v0/${
+      import.meta.env.VITE_AIRTABLE_BASE_ID
+    }/${import.meta.env.VITE_TABLE_NAME}/${id}`;
+
+    const options = {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${import.meta.env.VITE_AIRTABLE_API_TOKEN}`,
+      },
+    };
+
+    try {
+      const response = await fetch(url, options);
+      if (!response.ok) {
+        const message = `Error: ${response.status}`;
+        throw new Error(message);
+      }
+
+      const updatedList = todoList.filter((todo) => todo.id !== id);
+      setTodoList(updatedList);
+    } catch (error) {
+      console.error("Failed to delete todo:", error.message);
+    }
+  };
 
   return (
     <BrowserRouter>
